@@ -1,0 +1,38 @@
+# Install the required library if not already installed
+# pip install python-docx
+
+from docx import Document
+
+# Create a new Document
+doc = Document()
+
+# Add a heading
+doc.add_heading('Troubleshooting', level=1)
+
+# Create a table with 2 columns (Issue, Solution)
+table = doc.add_table(rows=1, cols=2)
+table.style = 'Table Grid'
+
+# Add the header row
+header_cells = table.rows[0].cells
+header_cells[0].text = 'Issue'
+header_cells[1].text = 'Solution'
+
+# List of issues and their solutions
+issues_solutions = [
+    ('Sensors not detected', 'Check wiring and sensor drivers'),
+    ('No internet / SMS alerts not sent', 'Verify network/SIM connection'),
+    ('False accident detections', 'Recalibrate sensors, adjust thresholds'),
+    ('High processing delay', 'Use a higher-spec edge device')
+]
+
+# Add each issue and solution to the table
+for issue, solution in issues_solutions:
+    row_cells = table.add_row().cells
+    row_cells[0].text = issue
+    row_cells[1].text = solution
+
+# Save the document
+doc.save('Troubleshooting_Table.docx')
+
+print("Troubleshooting table created successfully as 'Troubleshooting_Table.docx'.")
